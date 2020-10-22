@@ -1,1 +1,19 @@
 # Insight
+##1total number of census tracts in each core based statistical area
+
+task1<-aggregate(dataset$POP00, by=list(trackName=dataset$CBSA_T), FUN=length)
+
+#2total population in 2000/ not working yet
+
+task2<-aggregate(dataset$POP00, by=list(trackName=dataset$CBSA_T), FUN=sum)
+
+#3 totalpopulation in 2010/ npot working yet
+step3<-aggregate(dataset$POP10, by=list(trackName=dataset$CBSA_T), FUN=sum)
+
+#4 average population % change = not working yet
+step4<-aggregate(as.numeric(dataset$PPCHG), by=list(trackName=dataset$CBSA_T), FUN=mean(na.rm = TRUE))  
+
+# report file
+newdf<-data.frame(step1, step2[,2], step3[,2]step4[,2])
+names(newdf)<-c("trackname", "total_tracts", "pop00", "pop10") #don't forget to add ppchg
+write.csv(newdf, "report.csv")
